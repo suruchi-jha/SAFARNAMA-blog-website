@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowDown } from "lucide-react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import { FloatingBalls } from "../components/FloatingBalls"
 
 // Sample genres for the explore section
 const genres = [
@@ -155,7 +156,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Explore Section with Animation */}
+        {/* Explore Section with Floating Balls */}
         <section id="explore-section" className="explore-section">
           <div className="container">
             <motion.div
@@ -164,29 +165,20 @@ export default function Home() {
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="section-title">Explore</h2>
-              <p className="section-subtitle">Discover stories from various genres</p>
+              <h2 className="section-title" style={{ color: "#2f1b14" }}>
+                Explore
+              </h2>
+              <p className="section-subtitle" style={{ color: "#5d4037" }}>
+                Discover stories from various genres
+              </p>
             </motion.div>
 
             <motion.div
-              className="explore-genres-grid"
               initial={{ opacity: 0 }}
               animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              {genres.map((genre, index) => (
-                <motion.div
-                  key={index}
-                  className="explore-genre-item"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
-                  <Link to={`/blogs/genre/${genre.toLowerCase()}`} className="genre-badge large">
-                    {genre}
-                  </Link>
-                </motion.div>
-              ))}
+              <FloatingBalls genres={genres} />
             </motion.div>
           </div>
         </section>
