@@ -22,10 +22,15 @@ public class HomeController {
     @Autowired
     private GenreService genreService;
 
-    @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("genres", genreService.findAllGenres());
-        return "home";
+    @GetMapping("/explore/data")
+    public ResponseEntity<?> exploreData() {
+        List<Genre> genres = genreService.findAllGenres();
+        List<Blog> allBlogs = blogService.findAllBlogs();
+
+        if (genres == null) genres = new ArrayList<>();
+        if (allBlogs == null) allBlogs = new ArrayList<>();
+
+        return ResponseEntity.ok(new ExploreResponse(genres, allBlogs));
     }
 
     @GetMapping("/dashboard")
@@ -61,11 +66,15 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/explore")
-    public String explore(Model model) {
-        model.addAttribute("genres", genreService.findAllGenres());
-        model.addAttribute("allBlogs", blogService.findAllBlogs());
-        return "explore";
+    static class ExploreResponse {
+        public List<?> genres;
+        public List<?> allBlogs;
+
+        public ExploreResponse(List<?> genres, List<?> allBlogs) {
+            this.genres = genres;
+            this.allBlogs = allBlogs;
+        }
     }
+
 }
 
