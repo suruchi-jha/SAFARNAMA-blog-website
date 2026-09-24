@@ -65,6 +65,7 @@ public class SecurityConfig {
                         // Protect API endpoints that require authentication
                         .requestMatchers("/api/blogs").authenticated()
                         .requestMatchers("/api/comments/**").authenticated()
+                        .requestMatchers("/api/ai/**").authenticated()
 
                         // Allow all other requests for now during development
                         .anyRequest().permitAll()
